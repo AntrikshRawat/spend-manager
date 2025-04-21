@@ -32,11 +32,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#68b0ab] py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex md:flex-nowrap flex-wrap md:justify-between justify-center items-center mb-4">
           <h1 className="md:text-3xl text-xl font-bold text-[#faf3dd]">Money Spending Manager</h1>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-indigo-500 text-sm md:text-xl text-white p-3 rounded-lg hover:bg-indigo-600 transition-all duration-200"
+            className="bg-indigo-500 text-sm md:text-xl text-white p-3 rounded-lg hover:bg-indigo-600 transition-all duration-200 md:m-0 m-4"
           >
             Create New Account
           </button>
@@ -54,23 +54,20 @@ export default function Home() {
               onClick={() => navigate(`/account/${account.id}`)}
               className="bg-[#faf3dd] p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer"
             >
-              <div className="flex justify-between items-center">
-                <div>
-                  <h2 className="md:text-xl text-[#68b0ab] font-bold hover:brightness-105">
+              <div className="flex flex-wrap justify-between items-center">
+                <div className='md:w-fit md:my-0 my-4 w-full text-center'>
+                  <h2 className="text-xl text-[#68b0ab] font-bold hover:brightness-105">
                     {`${account.person1}`.toUpperCase()} & {`${account.person2}`.toUpperCase()}
                   </h2>
-                  <p className="text-[#4a7c59] mt-1">
-                    {account.payments.length} payments recorded
-                  </p>
                 </div>
-                <span className='flex'>
+                <span className='flex justify-center items-center md:w-fit w-full'>
                 <div className="text-right">
                   <p className="md:text-sm text-gray-500">Total Spent</p>
-                  <p className="text-lg font-semibold text-indigo-600">
+                  <p className="text-lg font-semibold text-indigo-600 text-center">
                   ₹{account.payments.reduce((sum, payment) => sum + payment.amount, 0).toFixed(2)}
                   </p>
                 </div>
-                <button className='bg-red-400 rounded-xl py-2 px-3 m-2' onClick={()=>{handleDelete(account.id)}}>Delete</button>
+                <button className='bg-red-400 rounded-xl py-2 px-3 m-2 mx-4' onClick={()=>{handleDelete(account.id)}}>Delete</button>
                 </span>
               </div>
             </div>

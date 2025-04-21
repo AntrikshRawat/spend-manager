@@ -16,12 +16,13 @@ export default function Account() {
 
   useEffect(() => {
     const loadedAccount = getAccountById(id);
+    console.log(loadedAccount);
     if (loadedAccount) {
       setAccount(loadedAccount);
     } else {
       navigate('/');
     }
-  }, [id, navigate]);
+  }, [id,navigate]);
 
   const handleAddPayment = (e) => {
     e.preventDefault();
@@ -95,26 +96,32 @@ export default function Account() {
           </div>
         </div>
 
-        <div className="bg-[#faf3dd] rounded-2xl shadow-lg p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment History</h2>
-          <div className="space-y-4">
-            {account.payments.map((payment) => (
-              <div
-                key={payment.id}
-                className="border-b border-gray-200 pb-4 last:border-0 last:pb-0"
-              >
-                <div className="flex justify-between items-start">
-                    <p className="font-md text-gray-900">{payment.where}</p>
-                    <p className="text-md text-gray-500">Paid by {payment.name}</p>
-                    <p className="text-md text-gray-500">Paid on {`${payment.date}`.slice(0,10)}</p>
-                  <p className="text-md font-semibold text-indigo-600">
-                    ₹{payment.amount.toFixed(2)}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <div className="bg-[#faf3dd] rounded-2xl shadow-lg p-6 overflow-x-auto">
+  <h2 className="text-xl font-semibold text-gray-900 mb-4">Payment History</h2>
+  <table className="min-w-full divide-y divide-gray-200">
+    <thead className="bg-slate-100">
+      <tr>
+        <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Where</th>
+        <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Who Paid</th>
+        <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Date</th>
+        <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">Amount</th>
+      </tr>
+    </thead>
+    <tbody className="bg-white divide-y divide-gray-200">
+      {account.payments.map((payment) => (
+        <tr key={payment.id}>
+          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{payment.where}</td>
+          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{payment.name}</td>
+          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{`${payment.date}`.slice(0,10)}</td>
+          <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-indigo-600">
+            ₹{payment.amount.toFixed(2)}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
 
         <Modal
           isOpen={isModalOpen}
